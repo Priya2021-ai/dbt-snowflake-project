@@ -1,7 +1,4 @@
-
 version: 2
-
-
 sources:
   - name: demo
     database: DEMO
