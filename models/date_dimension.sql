@@ -4,19 +4,8 @@ WITH CTE AS (
         DATE(TO_TIMESTAMP(STARTED_AT)) AS DATE_STARTED_AT,
         HOUR(TO_TIMESTAMP(STARTED_AT)) AS HOUR_STARTED_AT,  
         
-        -- Weekend vs Business Day Logic
-        CASE 
-            WHEN DAYNAME(TO_TIMESTAMP(STARTED_AT)) IN ('Sat', 'Sun') THEN 'WEEKEND'
-            ELSE 'BUSINESSDAY'
-        END AS DAY_TYPE,
-
-        -- Seasons Logic
-        CASE 
-            WHEN MONTH(TO_TIMESTAMP(STARTED_AT)) IN (12, 1, 2) THEN 'WINTER'
-            WHEN MONTH(TO_TIMESTAMP(STARTED_AT)) IN (3, 4, 5) THEN 'SPRING'
-            WHEN MONTH(TO_TIMESTAMP(STARTED_AT)) IN (6, 7, 8) THEN 'SUMMER'
-            WHEN MONTH(TO_TIMESTAMP(STARTED_AT)) IN (9, 10, 11) THEN 'FALL'
-        END AS SEASON
+    {{day_type('STARTED_AT')}} AS DAY_TYPE,
+    {{get_season('STARTED_AT')}} AS STATION_OF_YEAR
 
     FROM {{ source('demo', 'bike') }}
     WHERE STARTED_AT != 'started_at'
@@ -24,3 +13,4 @@ WITH CTE AS (
 
 SELECT 
     * FROM CTE
+    

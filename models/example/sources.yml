@@ -5,3 +5,6 @@ sources:
     schema: DEMO_SCHEMA
     tables:
       - name: bike
+      - name: weather
+
+     
