@@ -9,7 +9,7 @@ WITH daily_weather AS (
         clouds
     FROM {{ source('demo', 'weather') }}
 
-),   -- 🔥 THIS COMMA WAS MISSING
+),
 
 daily_weather_agg AS (
 
